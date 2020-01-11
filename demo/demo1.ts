@@ -21,3 +21,7 @@ const c = 3;
 let d = 4;
 
 let e = {a: a, b: b, c: c, d:d};
+
+let f,
+  g,
+  h;
