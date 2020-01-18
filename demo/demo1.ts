@@ -11,6 +11,11 @@ const storeName = 'storeName';
 
 console.log('创建[ ' + dbName + ' / ' + storeName + ' ]成功');
 
+if(true)
+{
+  console.log()
+} else { console.log()}
+
 var userAgent = {
     ua: ua
 }
