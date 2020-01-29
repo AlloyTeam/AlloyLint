@@ -1,0 +1,7 @@
+// 当前项目的编译文件
+{
+    "extends": "./tsconfig.json",
+    "include": [
+        "./src/**/*"
+    ],
+}

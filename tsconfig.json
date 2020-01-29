@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "target": "es5",
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "noImplicitThis": true,
+        "moduleResolution": "node",
+        "outDir": "dist",
+        "removeComments": false,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "baseUrl": ".",
+        "declaration": true,
+        "skipLibCheck": true,
+        "lib": ["ES2015", "ES2016"]
+    },
+    "include": [
+        "./src/**/*",
+        // 因为当前脚本会查找 tsconfig.json 文件，要把 demo 文件夹加进去，但是编译又不要的
+        "./demo/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

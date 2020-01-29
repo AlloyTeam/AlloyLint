@@ -1,0 +1,67 @@
+{
+    "name": "alloylint",
+    "version": "0.0.1",
+    "description": "apply eslint autofix but keep last author info in git blame",
+    "contributors": [
+        "sigmaliu"
+    ],
+    "main": "./dist/index.js",
+    "bin": {
+        "alloylint": "./dist/index.js"
+    },
+    "keywords": [
+        "front-end",
+        "AlloyTeam",
+        "eslint-autofix",
+        "eslint"
+    ],
+    "homepage": "http://git.code.oa.com/sigmaliu/standards-lint.git",
+    "repository": {
+        "type": "git",
+        "url": "http://git.code.oa.com/sigmaliu/standards-lint.git"
+    },
+    "scripts": {
+        "dist": "node ./script/dist.js",
+        "dev": "node ./script/dev.js",
+        "dev:auth": "git checkout -- demo/*; npm run dist; node ./dist/index.js -a 'demo/**/*'",
+        "test": "npm run dist; node ./script/test.js"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "{src,script}/**/*.{js,ts}": [
+            "node ./script/dist.js",
+            "node ./dist/index.js",
+            "git add"
+        ]
+    },
+    "author": "sigmaliu",
+    "dependencies": {
+        "@types/eslint": "^6.1.3",
+        "@types/node": "^13.1.2",
+        "commander": "^4.0.1",
+        "globby": "^10.0.1",
+        "eslint": "^6.8.0",
+        "fs-extra": "^8.1.0"
+    },
+    "files": [
+        "dist/*",
+        "docs/*"
+    ],
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^2.18.0",
+        "@typescript-eslint/parser": "^2.18.0",
+        "eslint-config-alloy": "^3.5.0",
+        "eslint-plugin-react": "^7.17.0",
+        "typescript": "^3.7.5",
+        "husky": "^3.1.0",
+        "lint-staged": "^9.5.0"
+    },
+    "engines": {
+        "node": ">=0.10.0",
+        "npm": ">=1.2.10"
+    }
+}

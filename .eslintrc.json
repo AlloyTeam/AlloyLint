@@ -1,0 +1,23 @@
+{
+    "extends": [
+        "alloy",
+        "alloy/typescript"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 6,
+        "ecmaFeatures": {},
+        "project": "./tsconfig.json"
+    },
+    "env": {
+        "browser": true,
+        "mocha": true,
+        "node": true
+    },
+    "globals": {},
+    "rules": {
+        "@typescript-eslint/ban-ts-ignore": "off",
+        "no-console": "off"
+    }
+}
