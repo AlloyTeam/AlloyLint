@@ -6,7 +6,7 @@
 import AutoFixAPI from '../libs/eslilnt-autofix-api';
 import { log, globToFiles } from '../utils/utils';
 
-export function fixFilesNormal(args: string[]) {
+export default function fixFilesNormal(args: string[]) {
     const autoFixAPI = new AutoFixAPI();
 
     (async () => {

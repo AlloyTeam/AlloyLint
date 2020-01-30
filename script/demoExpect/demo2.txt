@@ -1,0 +1,31 @@
+03df835c (auth3 2020-01-11 17:54:50 +0800  1) if (false) {
+03df835c (auth3 2020-01-11 17:54:50 +0800  2)     return 1;
+03df835c (auth3 2020-01-11 17:54:50 +0800  3) }
+96663b43 (auth3 2020-01-30 11:39:58 +0800  4)
+ae867e57 (auth3 2020-01-30 11:39:59 +0800  5) return 2;
+96663b43 (auth3 2020-01-30 11:39:58 +0800  6)
+03df835c (auth3 2020-01-11 17:54:50 +0800  7)
+d44505aa (auth2 2020-01-30 11:39:58 +0800  8) const getImgAndWidth = function (data, dprrecord, callback) {
+e3105c52 (auth2 2020-01-30 11:39:58 +0800  9)     const canvas = document.createElement('canvas');
+e3105c52 (auth2 2020-01-30 11:39:58 +0800 10)     const ctx = canvas.getContext('2d');
+e3105c52 (auth2 2020-01-30 11:39:58 +0800 11)     const img = new Image();
+ae867e57 (auth3 2020-01-30 11:39:59 +0800 12) };
+03df835c (auth3 2020-01-11 17:54:50 +0800 13)
+5efa4a5f (auth1 2020-01-30 11:39:58 +0800 14) sheetId = sheetId || core.window.SpreadsheetApp.spreadsheet.getActiveSheetId();
+254bdad9 (auth1 2020-01-11 17:59:02 +0800 15)
+33c28f47 (auth1 2020-01-30 11:39:58 +0800 16) const { rowData } = sheet.data;
+254bdad9 (auth1 2020-01-11 17:59:02 +0800 17)
+5efa4a5f (auth1 2020-01-30 11:39:58 +0800 18) // debugger;
+254bdad9 (auth1 2020-01-11 17:59:02 +0800 19)
+ae867e57 (auth3 2020-01-30 11:39:59 +0800 20) const options = {};
+03df835c (auth3 2020-01-11 17:54:50 +0800 21)
+ae867e57 (auth3 2020-01-30 11:39:59 +0800 22) let {
+a500d74a (auth3 2020-01-30 11:39:59 +0800 23)     sheetIndex, autoSwitch = true, sheetId, sheetName, sheetType,
+ae867e57 (auth3 2020-01-30 11:39:59 +0800 24) } = options;
+03df835c (auth3 2020-01-11 17:54:50 +0800 25)
+ae867e57 (auth3 2020-01-30 11:39:59 +0800 26) let useless;
+03df835c (auth3 2020-01-11 17:54:50 +0800 27)
+03df835c (auth3 2020-01-11 17:54:50 +0800 28) if (true) {
+03df835c (auth3 2020-01-11 17:54:50 +0800 29)     return 1;
+ae867e57 (auth3 2020-01-30 11:39:59 +0800 30) }
+ae867e57 (auth3 2020-01-30 11:39:59 +0800 31) return 2;

@@ -10,9 +10,14 @@ const execSync = require('child_process').execSync;
 const buildFunc = () => {
     fs.removeSync(path.resolve(__dirname, '../dist'));
 
-    execSync('tsc -b tsconfig.build.json', {
-        cwd: path.resolve(__dirname, '../'),
-    });
+    try {
+        execSync('tsc -b tsconfig.build.json', {
+            cwd: path.resolve(__dirname, '../'),
+        });
+    }
+    catch(err) {
+        console.log(err.stdout.toString());
+    }
 
     console.log(`[alloylint] ${new Date().toLocaleTimeString()}: compiler done`);
 }

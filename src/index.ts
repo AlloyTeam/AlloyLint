@@ -6,8 +6,8 @@
  */
 
 import program from 'commander';
-import { fixFilesNormal } from './features/fixNormal';
-import { fixFilesByAuth } from './features/fixByAuth';
+import fixFilesNormal from './features/fixNormal';
+import fixFilesByAuth from './features/fixByAuth';
 
 (() => {
     // 解析参数
@@ -16,7 +16,7 @@ import { fixFilesByAuth } from './features/fixByAuth';
 
     program.parse(process.argv);
 
-    if (program.auth) {
+    if (program.author) {
         fixFilesByAuth(program.args);
 
         return;

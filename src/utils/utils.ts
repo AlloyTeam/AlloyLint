@@ -144,49 +144,6 @@ export function getAuthAndEmailByBlame(gitBlame: string | string[]) {
 }
 
 /**
- * 计算每个修改涉及到的行里面对这些行做最多修改的作者
- * @param filePath
- * @param line
- * @param endLine
- */
-export function getAuthByLines(filePath: string, line: number, endLine: number) {
-    const authCount: any = {};
-    let max = 0;
-    let author = '';
-    let authorEmail = '';
-
-    for (let i = line; i <= endLine; i++) {
-        let auth = '';
-        const email = '';
-
-        try {
-            const gitBlame = execSync(`git blame ${filePath} -L ${i},${i} --line-porcelain`);
-            const { auth, email } = getAuthAndEmailByBlame(gitBlame.toString());
-        } catch (err) {
-            auth = unknown;
-        }
-
-        if (!authCount[auth]) {
-            authCount[auth] = 0;
-        }
-
-        authCount[auth] += 1;
-
-        if (authCount[auth] > max) {
-            max = authCount[auth];
-
-            author = auth;
-            authorEmail = email;
-        }
-    }
-
-    return {
-        author,
-        authorEmail,
-    };
-}
-
-/**
  * 获取每个文件的所有行数对应的修改人
  * @param filePath
  */

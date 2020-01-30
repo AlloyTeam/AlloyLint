@@ -6,7 +6,9 @@
 import fs from 'fs';
 import path from 'path';
 import { CLIEngine } from 'eslint';
-import { occurError, log, cwd, getAuthByEachLine, BOM, unknown } from '../utils/utils';
+import {
+    occurError, log, cwd, getAuthByEachLine, BOM, unknown,
+} from '../utils/utils';
 
 interface IMessage {
     column: number; // - 出错的列。
@@ -27,7 +29,7 @@ export default class AutoFixAPI {
      * 修复文件
      * @param files 文件列表
      */
-    public applyAutoFixToFiles(files: string[]) {
+    public applyAutoFixToFiles = (files: string[]) => {
         try {
             log('start collecting information');
 
@@ -55,13 +57,13 @@ export default class AutoFixAPI {
         } catch (err) {
             occurError(err);
         }
-    }
+    };
 
     /**
      * 生成某个最后修改人所涉及到的文件和代码的修复报告
      * @param files 文件列表
      */
-    public getESLintReportByAuth(files: string[]) {
+    public getESLintReportByAuth = (files: string[]) => {
         // CLIEngine 的基本配置，和其他修复 API 通用的
         const baseConfig = this.getBaseConfig();
         // 统计每个文件可被修复的问题数
@@ -197,7 +199,7 @@ export default class AutoFixAPI {
         // @ts-ignore
         const cli = new CLIEngine(baseConfig);
 
-        for (let file of files) {
+        for (const file of files) {
             // 为了让 fix 函数取得当前处理的文件名的
             currentFile = file;
 
@@ -233,20 +235,20 @@ export default class AutoFixAPI {
             report,
             auther: filterAuth,
         };
-    }
+    };
 
     /**
      * 根据 report 运用修复
      * @param report
      */
-    public applyAutoFixByReport(report: any) {
+    applyAutoFixByReport = (report: any) => {
         CLIEngine.outputFixes(report);
-    }
+    };
 
     /**
      * 初始化
      */
-    private getBaseConfig() {
+    private getBaseConfig = () => {
         const config = path.resolve(cwd, '.eslintrc.json');
         const ignoreFile = path.resolve(cwd, '.eslintignore.json');
 
@@ -254,9 +256,12 @@ export default class AutoFixAPI {
             occurError('can not find .eslintrc.json');
         }
 
-        let ignoreConfig = {};
+        let ignoreConfig = {
+            ignore: false,
+            ignorePath: '',
+        };
 
-        if (fs.existsSync(ignoreFile)) {
+        if (fs.existsSync(ignoreFile) && process.env.MODE !== 'demo') {
             ignoreConfig = {
                 ignore: true,
                 ignorePath: ignoreFile,
@@ -274,5 +279,5 @@ export default class AutoFixAPI {
                 '@typescript-eslint/prefer-string-starts-ends-with': 'off', // autofix不能修复这条规则，会修出问题
             },
         };
-    }
+    };
 }

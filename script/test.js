@@ -3,83 +3,88 @@
  * @author sigmaliu
  */
 
+const fs = require('fs');
 const path = require('path');
 const execSync = require('child_process').execSync;
+const globby = require('globby');
+const {
+    buildFunc
+} = require('./dist');
 
 const rootDir = path.resolve(__dirname, '../');
+const binPath = path.resolve(__dirname, '../dist/index.js');
 
 // 记录当前的 commit
 let currentCommit = execSync('git log | head -n 1', {
     cwd: rootDir,
 });
-
 currentCommit = currentCommit.toString().split(' ').slice(1).join(' ').trim();
 
-const binPath = path.resolve(__dirname, '../dist/index.js');
+// 编译
+buildFunc();
 
-const demo1 = path.resolve(__dirname, '../demo/demo1.ts');
+(async () => {
+    let extensions = ['js', 'jsx', 'ts', 'tsx', 'mjs'];
+    let files = await globby("demo/**/*", {
+        expandDirectories: {
+            files: ['*'],
+            extensions,
+        },
+    });
 
-execSync(`node ${binPath} -a ${demo1}`, {
-    cwd: rootDir,
-});
+    // 运行脚本
+    execSync(`node ${binPath} -a "demo/**/*"`, {
+        cwd: rootDir,
+    });
 
-const changedAuther = getAuthByEachLine(demo1);
+    for (let file of files) {
+        const fileName = path.basename(file);
+        const extName = path.extname(fileName);
+        const expectPath = path.resolve(__dirname, `./demoExpect/${fileName.slice(0, -extName.length)}.txt`);
 
-const shouldMatch = [
-    0,
-    1,
-    1,
-    1,
-    1,
-    2, // //auth2
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    3, // if(true)
-    3,
-    3,
-    3,
-    1, // var userAgent = {
-    1,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    2,
-    3, // let e = {a: a, b: b, c: c, d:d};
-    3,
-    3,
-    3,
-    3,
-    3,
-    3,
-]
+        const expectBlame = fs.readFileSync(expectPath, 'utf8');
 
-changedAuther.slice(1).map((auth, index) => {
-    if (!auth === `auth${shouldMatch[index]}`) {
-        console.log('Test Fail');
-        console.log(changedAuther);
+        const expectAuth = parseBlameToGetAuth(expectBlame);
+
+        const afterFixAuth = getAuthByEachLine(file);
+
+        const lines = Object.keys(afterFixAuth);
+
+        const fixMatchExpect = afterFixAuth.every((value, index) => value === expectAuth[index]);
+
+        const expectMatchFix = expectAuth.every((value, index) => value === afterFixAuth[index]);
+
+        if (fixMatchExpect && expectMatchFix) {
+            console.log(`${fileName} test pass`);
+        }
+        else {
+            console.log(`${fileName} test fail`);
+        }
     }
-})
 
-console.log('Test Pass');
+    // 恢复到之前的 commit
+    execSync(`git reset --hard ${currentCommit}`, {
+        cwd: process.cwd(),
+    });
+})()
 
-execSync(`git reset --hard ${currentCommit}`, {
-    cwd: process.cwd(),
-});
-
+/**
+ * 获取文件的每行作者
+ * @param {string} filePath 
+ */
 function getAuthByEachLine(filePath) {
-    const lineAuthMapping = [];
     const gitBlame = execSync(`git blame ${filePath}`);
 
-    const lines = gitBlame.toString().split('\n');
+    return parseBlameToGetAuth(gitBlame.toString());
+}
+
+/**
+ * 解析 git blame 的结果，获取每行的作者信息
+ * @param {string} gitBlame 
+ */
+function parseBlameToGetAuth(gitBlame) {
+    const lineAuthMapping = [];
+    const lines = gitBlame.split('\n');
     const len = lines.length;
 
     for (let i = 0; i < len; i++) {
