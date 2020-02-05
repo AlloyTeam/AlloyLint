@@ -1,24 +1,35 @@
 {
     "name": "alloylint",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "apply eslint autofix but keep last author info in git blame",
     "contributors": [
-        "sigmaliu"
+        "sigmaliu <sigmaliu@tencent.com>"
     ],
     "main": "./dist/index.js",
     "bin": {
         "alloylint": "./dist/index.js"
     },
     "keywords": [
+        "alloy",
+        "alloyteam",
         "front-end",
-        "AlloyTeam",
-        "eslint-autofix",
-        "eslint"
+        "javascript",
+        "typscript",
+        "eslint",
+        "eslint autofix",
+        "autofix",
+        "style",
+        "blame",
+        "history",
+        "fix"
     ],
     "homepage": "https://github.com/AlloyTeam/AlloyLint",
     "repository": {
         "type": "git",
         "url": "https://github.com/AlloyTeam/AlloyLint.git"
+    },
+    "bugs": {
+        "url": "https://github.com/AlloyTeam/AlloyLint/issues"
     },
     "scripts": {
         "dist": "node ./script/dist.js",
@@ -40,7 +51,8 @@
             "git add"
         ]
     },
-    "author": "sigmaliu",
+    "author": "sigmaliu <sigmaliu@tencent.com>",
+    "license": "MIT",
     "dependencies": {
         "@types/eslint": "^6.1.3",
         "@types/node": "^13.1.2",
