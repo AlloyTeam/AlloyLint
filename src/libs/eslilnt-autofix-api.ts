@@ -249,11 +249,11 @@ export default class AutoFixAPI {
      * 初始化
      */
     private getBaseConfig = () => {
-        const config = path.resolve(cwd, '.eslintrc.json');
-        const ignoreFile = path.resolve(cwd, '.eslintignore.json');
+        const config = this.getFile('.eslintrc.json', '.eslintrc.js');
+        const ignoreFile = this.getFile('.eslintignore.json', '.eslintignore');
 
-        if (!fs.existsSync(config)) {
-            occurError('can not find .eslintrc.json');
+        if (!config) {
+            occurError('can not find .eslintrc.json or .eslintrc.js');
         }
 
         let ignoreConfig = {
@@ -261,7 +261,7 @@ export default class AutoFixAPI {
             ignorePath: '',
         };
 
-        if (fs.existsSync(ignoreFile) && process.env.MODE !== 'demo') {
+        if (ignoreFile && process.env.MODE !== 'demo') {
             ignoreConfig = {
                 ignore: true,
                 ignorePath: ignoreFile,
@@ -280,4 +280,23 @@ export default class AutoFixAPI {
             },
         };
     };
+
+    /**
+     * 备选文件
+     * @param prefer
+     * @param backup
+     */
+    private getFile(prefer: string, backup: string) {
+        const prePath = path.resolve(cwd, prefer);
+        const backPath = path.resolve(cwd, backup);
+
+        if (fs.existsSync(prePath)) {
+            return prePath;
+        }
+        if (fs.existsSync(backPath)) {
+            return backPath;
+        }
+
+        return null;
+    }
 }
