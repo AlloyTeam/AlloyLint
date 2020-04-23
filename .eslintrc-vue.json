@@ -1,0 +1,26 @@
+{
+    "extends": [
+        "plugin:vue/base"
+    ],
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true
+    },
+    "parser": "babel-eslint",
+    "plugins": [
+        "html"
+    ],
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 7
+    },
+    "rules": {
+        "no-console": "off",
+        "no-restricted-syntax": "off",
+        "no-plusplus": "off",
+        "no-continue": "off",
+        "indent": ["error", 4],
+        "max-len": ["error", 140]
+    }
+}

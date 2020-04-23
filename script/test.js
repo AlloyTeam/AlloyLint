@@ -25,7 +25,7 @@ buildFunc();
 
 (async () => {
     let extensions = ['js', 'jsx', 'ts', 'tsx', 'mjs'];
-    let files = await globby("demo/**/*", {
+    let files = await globby("demo/**/*{js,ts}", {
         expandDirectories: {
             files: ['*'],
             extensions,

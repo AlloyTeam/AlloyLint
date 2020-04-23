@@ -77,7 +77,7 @@ export function fileFilter(files: string[]) {
  * glob 转化成文件列表
  */
 export async function globToFiles(args: string[]) {
-    let extensions = ['js', 'jsx', 'ts', 'tsx', 'mjs'];
+    let extensions = ['js', 'jsx', 'ts', 'tsx', 'mjs', 'vue'];
 
     // @ts-ignore
     let files = await globby(args, {
