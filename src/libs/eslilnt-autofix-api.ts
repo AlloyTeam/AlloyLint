@@ -6,6 +6,7 @@
 import fs from 'fs';
 import path from 'path';
 import { CLIEngine } from 'eslint';
+import cluster from 'cluster';
 import {
     occurError, log, cwd, getAuthByEachLine, BOM, unknown,
 } from '../utils/utils';
@@ -34,8 +35,6 @@ export default class AutoFixAPI {
      */
     public applyAutoFixToFiles = (files: string[]) => {
         try {
-            log('start collecting information');
-
             const baseConfig = this.getBaseConfig();
 
             // @ts-ignore
@@ -47,14 +46,18 @@ export default class AutoFixAPI {
                 errorCount, warningCount, fixableErrorCount, fixableWarningCount,
             } = report;
 
-            log(JSON.stringify({
+            const infoCount = {
                 errorCount,
                 warningCount,
                 fixableErrorCount,
                 fixableWarningCount,
-            }, null, 4));
+            };
 
-            log('applying autofix');
+            if (cluster.isMaster) {
+                log(JSON.stringify(infoCount, null, 4));
+            } else {
+                process.send!({ infoCount });
+            }
 
             CLIEngine.outputFixes(report);
         } catch (err) {
