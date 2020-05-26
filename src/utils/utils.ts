@@ -85,6 +85,7 @@ export async function globToFiles(args: string[]) :Promise<string[]> {
             files: ['*'],
             extensions,
         },
+        ignore: ['**/node_modules/**'],
     });
 
     extensions = extensions.map((e) => `.${e}`);
@@ -98,6 +99,8 @@ export async function globToFiles(args: string[]) :Promise<string[]> {
     const filesSet = new Set(files);
 
     files = Array.from(filesSet);
+
+    files = files.map((file: string) => fs.realpathSync(file));
 
     if (!files.length) {
         occurError('No file to be fixed');
