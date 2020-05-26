@@ -48,8 +48,7 @@
     },
     "lint-staged": {
         "{src,script}/**/*.{js,ts}": [
-            "node ./script/dist.js",
-            "node ./dist/index.js",
+            "ts-node ./src",
             "git add"
         ]
     },
