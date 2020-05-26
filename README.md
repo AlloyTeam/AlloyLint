@@ -148,6 +148,12 @@ alloylint -a "./src/**/*"
    npm run demo:fixAuth
    ```
 
+2. 调试自定文件目录
+
+   ```sh
+   npx ts-node ./src [file-path]
+   ```
+
 
 ### 自举
 

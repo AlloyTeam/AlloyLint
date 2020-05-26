@@ -36,10 +36,10 @@
         "dev": "node ./script/dev.js",
         "test": "node ./script/test.js",
         "prepublishOnly": "npm run dist",
-        "demo:fix": "npm run dist; cross-env MODE=demo node ./dist/index.js 'demo/**/*{js,ts}'",
-        "demo:fixAuth": "npm run dist; cross-env MODE=demo node ./dist/index.js -a 'demo/**/*{js,ts}'",
-        "demo:fixVue": "npm run dist; cross-env MODE=demo TYPE=vue node ./dist/index.js 'demo/**/*.vue'",
-        "demo:fixVueAuth": "npm run dist; cross-env MODE=demo TYPE=vue node ./dist/index.js -a 'demo/**/*.vue'"
+        "demo:fix": "cross-env MODE=demo ts-node ./src 'demo/**/*{js,ts}'",
+        "demo:fixAuth": "ross-env MODE=demo ts-node ./src -a 'demo/**/*{js,ts}'",
+        "demo:fixVue": "cross-env MODE=demo TYPE=vue ts-node ./src 'demo/**/*.vue'",
+        "demo:fixVueAuth": "cross-env MODE=demo ts-node ./src -a 'demo/**/*.vue'"
     },
     "husky": {
         "hooks": {
@@ -81,6 +81,7 @@
         "eslint-plugin-vue": "^6.2.2",
         "husky": "^3.1.0",
         "lint-staged": "^9.5.0",
+        "ts-node": "^8.10.1",
         "typescript": "^3.7.5"
     },
     "engines": {
