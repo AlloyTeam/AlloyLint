@@ -286,7 +286,9 @@ export default class AutoFixAPI {
             // @ts-ignore
             fixTypes: ['problem', 'suggestion', 'layout'],
             rules: {
-                '@typescript-eslint/prefer-string-starts-ends-with': 'off', // autofix不能修复这条规则，会修出问题
+                '@typescript-eslint/prefer-string-starts-ends-with': 0, // autofix不能修复这条规则，会修出问题
+                '@typescript-eslint/no-non-null-assertion': 0,
+                '@typescript-eslint/no-unnecessary-type-assertion': 0,
             },
         };
     };
@@ -296,7 +298,7 @@ export default class AutoFixAPI {
      * @param prefer
      * @param backup
      */
-    private getFile(prefer: string, backup: string = '') {
+    private getFile = (prefer: string, backup: string = '') => {
         const prePath = path.resolve(cwd, prefer);
         const backPath = path.resolve(cwd, backup);
 
@@ -308,5 +310,5 @@ export default class AutoFixAPI {
         }
 
         return null;
-    }
+    };
 }
