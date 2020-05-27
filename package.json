@@ -1,6 +1,6 @@
 {
     "name": "alloylint",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "apply eslint autofix but keep last author info in git blame",
     "contributors": [
         "sigmaliu <sigmaliu@tencent.com>"
